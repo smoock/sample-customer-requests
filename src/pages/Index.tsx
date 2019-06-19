@@ -1,22 +1,22 @@
 import React from 'react';
-import { Query, QueryResult } from 'react-apollo';
+import styled from 'styled-components';
 
-import CURRENT_USER, { ICurrentUser } from '../apollo/queries/currentUser';
-import Loader from '../components/Loader';
+import UserProfile from '../components/UserProfile';
+
+const Styled = styled.div`
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 2rem;
+  max-width: 80rem;
+  margin: auto;
+`;
 
 const IndexPage: React.FC = () => {
   return (
-    <Query query={CURRENT_USER}>
-      {(query: QueryResult<ICurrentUser>) => {
-        const { loading, data } = query;
-        if (loading) {
-          return <Loader />;
-        } else if (data) {
-          return <h1>Hello, {data.currentUser.name}!</h1>;
-        }
-        return <h1>Error!</h1>;
-      }}
-    </Query>
+    <Styled>
+      <UserProfile />
+    </Styled>
   );
 };
 

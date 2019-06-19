@@ -9,6 +9,7 @@ import Customers from './pages/Customers';
 import Pricing from './pages/Pricing';
 import Login from './pages/Login';
 
+import GlobalStyle from './components/GlobalStyle';
 import Nav from './components/Nav';
 import Loader from './components/Loader';
 import CURRENT_USER from './apollo/queries/currentUser';
@@ -44,6 +45,7 @@ const App: React.FC = () => {
         <Route path="/pricing" exact render={() => protect(Pricing)} />
         <Route path="/login" exact component={Login} />
       </main>
+      <GlobalStyle />
     </Router>
   );
 };
