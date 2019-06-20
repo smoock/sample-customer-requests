@@ -4,7 +4,11 @@ import styled from 'styled-components';
 
 import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
-import GET_CURRENT_USER, { ICurrentUser } from '../apollo/queries/currentUser';
+import GET_CURRENT_USER, {
+  ICurrentUser,
+  IUser
+} from '../apollo/queries/currentUser';
+import GET_ISSUES, { IIssues } from '../apollo/queries/getIssues';
 import Loader from '../components/Loader';
 
 const Styled = styled.div`
@@ -12,6 +16,7 @@ const Styled = styled.div`
   border-radius: ${styles.BORDER_RADIUS};
   box-shadow: ${styles.BOX_SHADOW};
   padding: 1rem;
+  height: fit-content;
 
   .user {
     display: flex;
@@ -26,17 +31,22 @@ const Styled = styled.div`
     background-position: center center;
     margin-right: 1rem;
   }
+  .user__info p {
+    margin: 0;
+  }
 `;
 
-const UserMetaInfo: React.FC<ICurrentUser> = props => {
-  const { currentUser: user } = props;
+const UserMetaInfo: React.FC<IUser & { issues: number }> = props => {
   return (
     <div className="user">
       <div
         className="user__avatar"
-        style={{ backgroundImage: `url('${user.photoUrl}')` }}
+        style={{ backgroundImage: `url('${props.photoUrl}')` }}
       />
-      <h4>{user.name}</h4>
+      <div className="user__info">
+        <h4>{props.name}</h4>
+        <a>{props.issues ? props.issues : 'No'} issues reported</a>
+      </div>
     </div>
   );
 };
@@ -49,10 +59,20 @@ const UserProfile: React.FC = () => (
           return <Loader />;
         }
         if (query.data) {
+          const { currentUser } = query.data;
           return (
-            <>
-              <UserMetaInfo currentUser={query.data.currentUser} />
-            </>
+            <Query query={GET_ISSUES} variables={{ userId: currentUser.id }}>
+              {(issues: QueryResult<IIssues>) => {
+                if (issues.loading) {
+                  return <Loader />;
+                }
+                if (issues.data) {
+                  const count = issues.data.issues.nodes.length;
+                  return <UserMetaInfo {...currentUser} issues={count} />;
+                }
+                return `Error!`;
+              }}
+            </Query>
           );
         }
         return `Error!`;

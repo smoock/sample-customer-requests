@@ -3,10 +3,6 @@ import { Query, QueryResult } from 'react-apollo';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import Index from './pages/Index';
-import About from './pages/About';
-import Features from './pages/Features';
-import Customers from './pages/Customers';
-import Pricing from './pages/Pricing';
 import Login from './pages/Login';
 
 import GlobalStyle from './components/GlobalStyle';
@@ -39,10 +35,6 @@ const App: React.FC = () => {
       {LoggedInNav}
       <main>
         <Route path="/" exact render={() => protect(Index)} />
-        <Route path="/about" exact render={() => protect(About)} />
-        <Route path="/features" exact render={() => protect(Features)} />
-        <Route path="/customers" exact render={() => protect(Customers)} />
-        <Route path="/pricing" exact render={() => protect(Pricing)} />
         <Route path="/login" exact component={Login} />
       </main>
       <GlobalStyle />

@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export default gql`
-  {
+  query GetCurrentUser {
     currentUser {
       id
       name
@@ -11,11 +11,13 @@ export default gql`
   }
 `;
 
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  photoUrl: string;
+}
+
 export interface ICurrentUser {
-  currentUser: {
-    id: string;
-    name: string;
-    email: string;
-    photoUrl: string;
-  };
+  currentUser: IUser;
 }
