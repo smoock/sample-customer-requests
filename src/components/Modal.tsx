@@ -23,7 +23,7 @@ const Styled = styled.div`
   .modal__footer {
     display: flex;
     width: 100%;
-    height: 70px;
+    height: 80px;
     padding: ${styles.PADDING};
     background: ${colors.GRAY_1()};
     border-top: ${styles.BORDER};
@@ -31,6 +31,12 @@ const Styled = styled.div`
     bottom: 0;
     left: 0;
     z-index: ${styles.ZINDEX_MASK_CONTENT};
+  }
+  .modal__footer button {
+    padding: 0 1rem;
+  }
+  .modal__footer button h5 {
+    font-size: 1.125rem;
   }
   animation: modalanimation 250ms;
   will-change: opacity transform;

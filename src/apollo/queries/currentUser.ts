@@ -1,22 +1,14 @@
 import { gql } from 'apollo-boost';
+import USER_FRAGMENT, { IUser } from './userFragment';
 
 export default gql`
   query GetCurrentUser {
     currentUser {
-      id
-      name
-      email
-      photoUrl
+      ...UserFragment
     }
   }
+  ${USER_FRAGMENT}
 `;
-
-export interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  photoUrl: string;
-}
 
 export interface ICurrentUser {
   currentUser: IUser;

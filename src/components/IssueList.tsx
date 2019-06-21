@@ -5,7 +5,8 @@ import dateFormat from 'dateformat';
 
 import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
-import { IIssues, IIssue } from '../apollo/queries/getIssues';
+import { IIssues } from '../apollo/queries/getIssues';
+import { IIssue } from '../apollo/queries/issueFragment';
 import GET_ALL_ISSUES from '../apollo/queries/getAllIssues';
 import Loader from '../components/Loader';
 
@@ -19,7 +20,7 @@ const StyledIssue = styled.div`
   p {
     margin-bottom: 0.8rem;
   }
-  .user__avatar {
+  .issue__user__avatar {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -27,21 +28,49 @@ const StyledIssue = styled.div`
     background-position: center center;
     margin-right: 0.5rem;
   }
-  .issue-meta {
+  .issue__meta {
     display: flex;
     font-size: 0.8rem;
     color: ${colors.GRAY_3()};
   }
+  .issue__title h5 {
+    display: flex;
+  }
+  .issue__title h5 div {
+    margin-left: 0.5rem;
+  }
 `;
+
+interface IPillProps {
+  color: string;
+}
+
+const StyledPill = styled.div`
+  font-size: 0.8rem;
+  border: 1px solid ${(props: IPillProps) => props.color};
+  color: ${(props: IPillProps) => props.color};
+  border-radius: 15px;
+  padding: 0.2rem 0.5rem;
+`;
+
+const Pill: React.FC<IPillProps> = props => (
+  <StyledPill {...props}>{props.children}</StyledPill>
+);
 
 const Issue: React.FC<IIssue> = props => (
   <StyledIssue>
-    <h5>{props.summary}</h5>
+    <div className="issue__title">
+      <h5>
+        {props.summary}
+        <Pill color={colors.PURPLE_LIGHT()}>{props.topic.name}</Pill>
+      </h5>
+    </div>
+
     <p>{props.body}</p>
-    <div className="issue-meta">
+    <div className="issue__meta">
       {props.reporter && (
         <div
-          className="user__avatar"
+          className="issue__user__avatar"
           style={{ backgroundImage: `url('${props.reporter.photoUrl}')` }}
         />
       )}
@@ -53,7 +82,7 @@ const Issue: React.FC<IIssue> = props => (
 );
 
 const IssueList: React.FC = () => (
-  <Query query={GET_ALL_ISSUES}>
+  <Query query={GET_ALL_ISSUES} fetchPolicy="cache-and-network">
     {(query: QueryResult<IIssues>) => {
       if (query.loading) {
         return <Loader />;

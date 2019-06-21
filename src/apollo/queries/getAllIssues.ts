@@ -1,24 +1,13 @@
 import { gql } from 'apollo-boost';
+import ISSUE_FRAGMENT from './issueFragment';
 
 export default gql`
   query GetAllIssues {
-    issues {
+    issues(orderBy: CREATED_AT_DESC) {
       nodes {
-        id
-        reporter {
-          id
-          name
-          email
-          photoUrl
-        }
-        summary
-        type
-        body
-        topic {
-          name
-        }
-        createdAt
+        ...IssueFragment
       }
     }
   }
+  ${ISSUE_FRAGMENT}
 `;

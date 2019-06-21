@@ -5,15 +5,19 @@ import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
 
 interface IProps {
-  onClick: () => void;
+  status?: string;
+  secondary?: boolean;
+  onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 const Styled = styled.button`
-  padding: 1rem;
   border: 0;
   box-shadow: none;
   outline: none;
   background: none;
+  height: 3rem;
+  padding: 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,11 +26,15 @@ const Styled = styled.button`
   transition: 250ms all;
   transform: translateZ(0);
   text-decoration: none;
-  width: fit-content;
-  background-image: ${`linear-gradient(90deg,
+  background-image: ${(props: IProps) => {
+    if (props.secondary) {
+      return 'none';
+    }
+    return `linear-gradient(90deg,
       ${colors.PURPLE_LIGHT(0.8)} 0%,
       ${colors.PURPLE_LIGHT(1)} 100%
-    )`};
+    )`;
+  }};
   border: none;
 
   &:hover {
@@ -34,16 +42,19 @@ const Styled = styled.button`
     transform: translateY(-2px);
   }
   h5 {
-    color: ${colors.WHITE()};
+    color: ${(props: IProps) => {
+      if (props.secondary) {
+        return colors.PURPLE_LIGHT();
+      }
+      return colors.WHITE();
+    }};
   }
 `;
 
-const Button: React.FC<IProps> = props => {
-  return (
-    <Styled onClick={props.onClick}>
-      <h5>{props.children}</h5>
-    </Styled>
-  );
-};
+const Button: React.FC<IProps> = props => (
+  <Styled {...props} onClick={props.onClick} style={props.style}>
+    <h5>{props.children}</h5>
+  </Styled>
+);
 
 export default Button;

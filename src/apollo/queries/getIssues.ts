@@ -1,38 +1,16 @@
 import { gql } from 'apollo-boost';
-import { IUser } from './currentUser';
+import ISSUE_FRAGMENT, { IIssue } from './issueFragment';
 
 export default gql`
   query GetUserIssues($userId: UUID!) {
     issues(filter: { reporterId: { equalTo: $userId } }) {
       nodes {
-        id
-        reporter {
-          id
-          name
-          email
-          photoUrl
-        }
-        summary
-        type
-        body
-        topic {
-          name
-        }
-        createdAt
+        ...IssueFragment
       }
     }
   }
+  ${ISSUE_FRAGMENT}
 `;
-
-export interface IIssue {
-  id: string;
-  reporter: IUser;
-  summary: string;
-  type: string;
-  body: string;
-  topic: string;
-  createdAt: string;
-}
 
 export interface IIssues {
   issues: {

@@ -3,10 +3,8 @@ import { Query, QueryResult } from 'react-apollo';
 import styled from 'styled-components';
 
 import AddIssue from './AddIssue';
-import GET_CURRENT_USER, {
-  ICurrentUser,
-  IUser
-} from '../apollo/queries/currentUser';
+import GET_CURRENT_USER, { ICurrentUser } from '../apollo/queries/currentUser';
+import { IUser } from '../apollo/queries/userFragment';
 import GET_ISSUES, { IIssues } from '../apollo/queries/getIssues';
 import Loader from '../components/Loader';
 
@@ -41,7 +39,7 @@ const UserMetaInfo: React.FC<IUser & { issues: number }> = props => {
       />
       <div className="user__info">
         <h4>{props.name}</h4>
-        <a>{props.issues ? props.issues : 'No'} issues reported</a>
+        <a href="/">{props.issues ? props.issues : 'No'} issues reported</a>
       </div>
     </div>
   );
@@ -67,7 +65,7 @@ const UserProfile: React.FC = () => (
                   return (
                     <>
                       <UserMetaInfo {...currentUser} issues={count} />
-                      <AddIssue />
+                      <AddIssue userId={currentUser.id} />
                     </>
                   );
                 }
