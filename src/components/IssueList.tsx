@@ -4,12 +4,18 @@ import styled from 'styled-components';
 import dateFormat from 'dateformat';
 
 import * as colors from '../utils/colors';
+import * as styles from '../utils/styles';
 import { IIssues, IIssue } from '../apollo/queries/getIssues';
 import GET_ALL_ISSUES from '../apollo/queries/getAllIssues';
 import Loader from '../components/Loader';
 
 const StyledIssue = styled.div`
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  background: ${colors.WHITE()};
+  border-radius: ${styles.BORDER_RADIUS};
+  box-shadow: ${styles.BOX_SHADOW};
+  padding: 1rem;
+
   p {
     margin-bottom: 0.8rem;
   }

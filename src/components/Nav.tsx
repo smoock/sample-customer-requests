@@ -21,7 +21,7 @@ const Styled = styled.header`
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr;
   border-bottom: 1px solid ${colors.GRAY_2()};
-  z-index: ${styles.ZINDEX_MASK + 5};
+  z-index: ${styles.ZINDEX_MASK};
   a {
     text-decoration: none;
     display: flex;

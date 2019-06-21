@@ -2,8 +2,7 @@ import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import styled from 'styled-components';
 
-import * as colors from '../utils/colors';
-import * as styles from '../utils/styles';
+import AddIssue from './AddIssue';
 import GET_CURRENT_USER, {
   ICurrentUser,
   IUser
@@ -12,15 +11,12 @@ import GET_ISSUES, { IIssues } from '../apollo/queries/getIssues';
 import Loader from '../components/Loader';
 
 const Styled = styled.div`
-  background: ${colors.WHITE()};
-  border-radius: ${styles.BORDER_RADIUS};
-  box-shadow: ${styles.BOX_SHADOW};
-  padding: 1rem;
   height: fit-content;
 
   .user {
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
   }
 
   .user__avatar {
@@ -68,7 +64,12 @@ const UserProfile: React.FC = () => (
                 }
                 if (issues.data) {
                   const count = issues.data.issues.nodes.length;
-                  return <UserMetaInfo {...currentUser} issues={count} />;
+                  return (
+                    <>
+                      <UserMetaInfo {...currentUser} issues={count} />
+                      <AddIssue />
+                    </>
+                  );
                 }
                 return `Error!`;
               }}

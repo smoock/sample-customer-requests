@@ -17,7 +17,7 @@ body {
 body * {
   box-sizing: border-box;
 }
-input, p, li {
+input, p, li, select {
   font-size: .875rem;
   font-family: neue-haas-grotesk-text, sans-serif;
   font-weight: 400;
