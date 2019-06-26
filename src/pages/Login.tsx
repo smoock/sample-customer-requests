@@ -5,36 +5,25 @@ import { Redirect, withRouter, RouteComponentProps } from 'react-router';
 
 import { setJWT } from '../utils/jwt';
 import Loader from '../components/Loader';
-import Logo from '../components/Logo';
-import * as colors from '../utils/colors';
 
 const Styled = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: ${colors.WHITE()};
-  animation-duration: 1s;
-  animation-name: fadein;
-  overflow: hidden;
-  background: url('/images/papyrus.png');
-  .container {
-    margin: auto;
-    margin-top: 10%;
-    width: 25rem;
+  width: 30rem;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 5rem;
+  background: rgba(0, 0, 0, 0.01);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  padding-bottom: 4rem;
+  text-align: center;
+
+  p {
     text-align: center;
+    margin-bottom: 2rem;
   }
-  .container p {
-    margin: 2rem 0;
-  }
-  .container img {
+
+  .login__google-sign-in {
     width: 10rem;
-  }
-  .container svg {
-    width: 200px;
-    height: 80px;
-    margin-top: 2rem;
   }
 `;
 
@@ -61,19 +50,15 @@ const LoginPage: React.FC<RouteComponentProps> = props => {
     <Redirect to="/" />
   ) : (
     <Styled>
-      <div className="container">
-        <Logo />
-        <p>
-          Sign with your Google account to submit bugs or feature requests to
-          the Midtype team.
-        </p>
-        <a href={process.env.REACT_APP_MY_APP_GOOGLE_SIGN_IN_LINK}>
-          <img
-            alt="Sign into Midtype with Google."
-            src="/images/google-sign-in.png"
-          />
-        </a>
-      </div>
+      <h2>Sign in.</h2>
+      <p>Sign into {process.env.REACT_APP_MY_APP_NAME} with Google.</p>
+      <a href={process.env.REACT_APP_MY_APP_GOOGLE_SIGN_IN_LINK}>
+        <img
+          className="login__google-sign-in"
+          src="/images/google-sign-in.png"
+          alt="Google sign in link."
+        />
+      </a>
     </Styled>
   );
 };

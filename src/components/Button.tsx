@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
 
 interface IProps {
@@ -16,8 +15,7 @@ const Styled = styled.button`
   box-shadow: none;
   outline: none;
   background: none;
-  height: 3rem;
-  padding: 0 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,34 +24,21 @@ const Styled = styled.button`
   transition: 250ms all;
   transform: translateZ(0);
   text-decoration: none;
-  background-image: ${(props: IProps) => {
-    if (props.secondary) {
-      return 'none';
-    }
-    return `linear-gradient(90deg,
-      ${colors.PURPLE_LIGHT(0.8)} 0%,
-      ${colors.PURPLE_LIGHT(1)} 100%
-    )`;
-  }};
+  background-color: ${(props: IProps) => (props.secondary ? 'white' : 'black')};
   border: none;
 
   &:hover {
-    box-shadow: ${styles.BOX_SHADOW_PURPLE};
+    box-shadow: ${styles.BOX_SHADOW};
     transform: translateY(-2px);
   }
-  h5 {
-    color: ${(props: IProps) => {
-      if (props.secondary) {
-        return colors.PURPLE_LIGHT();
-      }
-      return colors.WHITE();
-    }};
+  h4 {
+    color: ${(props: IProps) => (props.secondary ? 'black' : 'white')};
   }
 `;
 
 const Button: React.FC<IProps> = props => (
   <Styled {...props} onClick={props.onClick} style={props.style}>
-    <h5>{props.children}</h5>
+    <h4>{props.children}</h4>
   </Styled>
 );
 

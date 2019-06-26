@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 
-import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
 import Mask from './Mask';
 import Card from './Card';
@@ -25,7 +24,7 @@ const Styled = styled.div`
     width: 100%;
     height: 80px;
     padding: ${styles.PADDING};
-    background: ${colors.GRAY_1()};
+    background: #fafafa;
     border-top: ${styles.BORDER};
     position: absolute;
     bottom: 0;

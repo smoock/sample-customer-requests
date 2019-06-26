@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
-import { Mutation } from 'react-apollo';
+import { Mutation, MutationFunc } from 'react-apollo';
 
-import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
 import Input from './Input';
 import Button from './Button';
@@ -28,8 +27,8 @@ const Styled = styled.div`
     margin-bottom: 0.5rem;
   }
   .form-group__select {
-    background: ${colors.WHITE()};
-    border: 1px solid ${colors.GRAY_2()};
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: ${styles.BOX_SHADOW};
     border-radius: 5px;
     height: 3rem;
@@ -38,7 +37,7 @@ const Styled = styled.div`
     outline: none;
     width: 100%;
     &:focus {
-      border: 1px solid ${colors.PURPLE_LIGHT()};
+      border: 1px solid black;
     }
   }
   .modal__footer {
@@ -56,8 +55,9 @@ const AddIssueForm: React.FC<IProps> = props => {
       <Mutation
         mutation={CREATE_ISSUE}
         variables={{ userId: props.userId, type, topicId, summary, body }}
+        refetchQueries={['GetAllIssues']}
       >
-        {(createIssue: any) => (
+        {(createIssue: MutationFunc) => (
           <Button
             onClick={() => {
               createIssue();

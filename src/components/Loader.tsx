@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import * as colors from '../utils/colors';
-
 const Styled = styled.div`
   position: fixed;
   top: 0;
@@ -43,7 +41,7 @@ const Styled = styled.div`
   }
 
   .ball-pulse-sync > div {
-    background-color: ${colors.PURPLE_LIGHT()};
+    background-color: black;
     width: 15px;
     height: 15px;
     border-radius: 100%;

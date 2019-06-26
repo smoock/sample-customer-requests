@@ -1,7 +1,6 @@
 import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
 
-import * as colors from '../utils/colors';
 import * as styles from '../utils/styles';
 
 interface IProps {
@@ -9,7 +8,7 @@ interface IProps {
 }
 
 const Styled = styled.div`
-  background: ${colors.WHITE()};
+  background: white;
   box-shadow: ${styles.BOX_SHADOW};
   border-radius: ${styles.BORDER_RADIUS};
   padding: ${styles.PADDING};

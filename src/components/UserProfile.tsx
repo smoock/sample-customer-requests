@@ -38,7 +38,7 @@ const UserMetaInfo: React.FC<IUser & { issues: number }> = props => {
         style={{ backgroundImage: `url('${props.photoUrl}')` }}
       />
       <div className="user__info">
-        <h4>{props.name}</h4>
+        <h3>{props.name}</h3>
         <a href="/">{props.issues ? props.issues : 'No'} issues reported</a>
       </div>
     </div>
@@ -69,12 +69,12 @@ const UserProfile: React.FC = () => (
                     </>
                   );
                 }
-                return `Error!`;
+                return null;
               }}
             </Query>
           );
         }
-        return `Error!`;
+        return null;
       }}
     </Query>
   </Styled>

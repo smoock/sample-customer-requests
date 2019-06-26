@@ -13,6 +13,11 @@ export default gql`
     topic {
       name
     }
+    comments(orderBy: CREATED_AT_DESC, filter: { parentId: { isNull: true } }) {
+      nodes {
+        id
+      }
+    }
     createdAt
   }
   ${USER_FRAGMENT}
@@ -28,4 +33,7 @@ export interface IIssue {
     name: string;
   };
   createdAt: string;
+  comments: {
+    nodes: Array<{ id: string }>;
+  };
 }

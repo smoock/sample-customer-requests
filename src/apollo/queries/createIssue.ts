@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import ISSUE_FRAGMENT from './issueFragment';
+import ISSUE_FRAGMENT, { IIssue } from './issueFragment';
 
 export default gql`
   mutation CreateIssue(
@@ -20,12 +20,9 @@ export default gql`
         }
       }
     ) {
-      query {
-        issues(orderBy: CREATED_AT_DESC) {
-          nodes {
-            ...IssueFragment
-          }
-        }
+      issue {
+        ...IssueFragment
+        __typename
       }
     }
   }
@@ -33,5 +30,5 @@ export default gql`
 `;
 
 export interface ICreateIssue {
-  issue: {};
+  issue: IIssue;
 }
