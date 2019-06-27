@@ -62,54 +62,56 @@ const AddComment: React.FC<{
   const [text, setText] = useState('');
   return (
     <StyledAddComment>
-      <div className="comment-form">
-        <Input
-          textarea={true}
-          value={text}
-          onChange={e => setText(e)}
-          style={{ height: 70 }}
-        />
-      </div>
       <Query query={GET_CURRENT_USER}>
         {(query: QueryResult<ICurrentUser>) => {
           if (query.loading) {
             return <Loader />;
           }
-          if (query.data) {
+          if (query.data && query.data.currentUser) {
             const { currentUser } = query.data;
             return (
-              <Mutation
-                mutation={CREATE_COMMENT}
-                variables={{
-                  commenterId: currentUser.id,
-                  body: text,
-                  issueId: props.issueId,
-                  parentId: props.parentId
-                }}
-                refetchQueries={
-                  props.parentId
-                    ? [
-                        {
-                          query: GET_COMMENT,
-                          variables: { id: props.parentId }
+              <>
+                <div className="comment-form">
+                  <Input
+                    textarea={true}
+                    value={text}
+                    onChange={e => setText(e)}
+                    style={{ height: 70 }}
+                  />
+                </div>
+                <Mutation
+                  mutation={CREATE_COMMENT}
+                  variables={{
+                    commenterId: currentUser.id,
+                    body: text,
+                    issueId: props.issueId,
+                    parentId: props.parentId
+                  }}
+                  refetchQueries={
+                    props.parentId
+                      ? [
+                          {
+                            query: GET_COMMENT,
+                            variables: { id: props.parentId }
+                          }
+                        ]
+                      : []
+                  }
+                >
+                  {(mutation: MutationFunc) => (
+                    <Button
+                      onClick={() => {
+                        mutation();
+                        if (props.onSubmit) {
+                          props.onSubmit();
                         }
-                      ]
-                    : []
-                }
-              >
-                {(mutation: MutationFunc) => (
-                  <Button
-                    onClick={() => {
-                      mutation();
-                      if (props.onSubmit) {
-                        props.onSubmit();
-                      }
-                    }}
-                  >
-                    Add Comment
-                  </Button>
-                )}
-              </Mutation>
+                      }}
+                    >
+                      Add Comment
+                    </Button>
+                  )}
+                </Mutation>
+              </>
             );
           }
           return null;

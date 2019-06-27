@@ -7,10 +7,12 @@ import Issue from './pages/Issue';
 
 import Main from './components/AppContainer';
 import GlobalStyle from './components/GlobalStyle';
+import Nav from './components/Nav';
 
 const App: React.FC = () => {
   return (
     <Router>
+      <Nav />
       <Main>
         <Route path="/" exact component={Index} />
         <Route path="/issue/:id" exact component={Issue} />

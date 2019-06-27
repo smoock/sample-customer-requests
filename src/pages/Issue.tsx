@@ -5,6 +5,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 
 import Loader from '../components/Loader';
 import IssueComments from '../components/IssueComments';
+import UserProfile from '../components/UserProfile';
 import { IssueMeta } from '../components/IssueListItem';
 import GET_ISSUE, { IIssueQuery } from '../apollo/queries/getIssue';
 
@@ -34,28 +35,31 @@ const LoginPage: React.FC<RouteComponentProps<IPathParams>> = props => {
   const { id } = props.match.params;
 
   return (
-    <Styled>
-      <Query query={GET_ISSUE} variables={{ id }}>
-        {(query: QueryResult<IIssueQuery>) => {
-          const { loading, data } = query;
-          if (loading) {
-            return <Loader />;
-          }
-          if (data) {
-            const { issue } = data;
-            return (
-              <Styled>
-                <h1>{issue.summary}</h1>
-                <IssueMeta {...issue} style={{ margin: '1rem 0 2rem 0' }} />
-                <p>{issue.body}</p>
-                <IssueComments {...issue} />
-              </Styled>
-            );
-          }
-          return null;
-        }}
-      </Query>
-    </Styled>
+    <>
+      <UserProfile />
+      <Styled>
+        <Query query={GET_ISSUE} variables={{ id }}>
+          {(query: QueryResult<IIssueQuery>) => {
+            const { loading, data } = query;
+            if (loading) {
+              return <Loader />;
+            }
+            if (data) {
+              const { issue } = data;
+              return (
+                <Styled>
+                  <h1>{issue.summary}</h1>
+                  <IssueMeta {...issue} style={{ margin: '1rem 0 2rem 0' }} />
+                  <p>{issue.body}</p>
+                  <IssueComments {...issue} />
+                </Styled>
+              );
+            }
+            return null;
+          }}
+        </Query>
+      </Styled>
+    </>
   );
 };
 

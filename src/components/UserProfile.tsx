@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Query, QueryResult } from 'react-apollo';
 import styled from 'styled-components';
 
@@ -28,6 +29,10 @@ const Styled = styled.div`
   .user__info p {
     margin: 0;
   }
+  .user__empty {
+    padding: 2rem;
+    border: 1px dashed gray;
+  }
 `;
 
 const UserMetaInfo: React.FC<IUser & { issues: number }> = props => {
@@ -49,10 +54,12 @@ const UserProfile: React.FC = () => (
   <Styled>
     <Query query={GET_CURRENT_USER}>
       {(query: QueryResult<ICurrentUser>) => {
+        // Return loader if still loading.
         if (query.loading) {
           return <Loader />;
         }
-        if (query.data) {
+        // If data is available and the user is logged in, show their profile.
+        else if (query.data && query.data.currentUser) {
           const { currentUser } = query.data;
           return (
             <Query query={GET_ISSUES} variables={{ userId: currentUser.id }}>
@@ -72,6 +79,17 @@ const UserProfile: React.FC = () => (
                 return null;
               }}
             </Query>
+          );
+        }
+        // If data is available, but there's no `currentUser`, that means they're no logged in.
+        else if (query.data) {
+          return (
+            <div className="user__empty">
+              <h4>
+                <Link to="/login">Sign in</Link> to submit a bug or feature
+                request of your own.
+              </h4>
+            </div>
           );
         }
         return null;
