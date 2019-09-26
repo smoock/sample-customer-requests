@@ -40,10 +40,10 @@ const UserMetaInfo: React.FC<IUser & { issues: number }> = props => {
     <div className="user">
       <div
         className="user__avatar"
-        style={{ backgroundImage: `url('${props.photoUrl}')` }}
+        style={{ backgroundImage: `url('${props.private.photoUrl}')` }}
       />
       <div className="user__info">
-        <h3>{props.name}</h3>
+        <h3>{props.private.name}</h3>
         <a href="/">{props.issues ? props.issues : 'No'} issues reported</a>
       </div>
     </div>
@@ -59,10 +59,10 @@ const UserProfile: React.FC = () => (
           return <Loader />;
         }
         // If data is available and the user is logged in, show their profile.
-        else if (query.data && query.data.currentUser) {
-          const { currentUser } = query.data;
+        else if (query.data && query.data.mUserInSession) {
+          const { mUserInSession: user } = query.data;
           return (
-            <Query query={GET_ISSUES} variables={{ userId: currentUser.id }}>
+            <Query query={GET_ISSUES} variables={{ userId: user.id }}>
               {(issues: QueryResult<IIssues>) => {
                 if (issues.loading) {
                   return <Loader />;
@@ -71,8 +71,8 @@ const UserProfile: React.FC = () => (
                   const count = issues.data.issues.nodes.length;
                   return (
                     <>
-                      <UserMetaInfo {...currentUser} issues={count} />
-                      <AddIssue userId={currentUser.id} />
+                      <UserMetaInfo {...user} issues={count} />
+                      <AddIssue userId={user.id} />
                     </>
                   );
                 }
@@ -81,18 +81,15 @@ const UserProfile: React.FC = () => (
             </Query>
           );
         }
-        // If data is available, but there's no `currentUser`, that means they're no logged in.
-        else if (query.data) {
-          return (
-            <div className="user__empty">
-              <h4>
-                <Link to="/login">Sign in</Link> to submit a bug or feature
-                request of your own.
-              </h4>
-            </div>
-          );
-        }
-        return null;
+        // If data is available, but there's no `currentUser`, that means they're no logged in
+        return (
+          <div className="user__empty">
+            <h4>
+              <Link to="/login">Sign in</Link> to submit a bug or feature
+              request of your own.
+            </h4>
+          </div>
+        );
       }}
     </Query>
   </Styled>

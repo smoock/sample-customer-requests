@@ -3,7 +3,7 @@ import USER_FRAGMENT, { IUser } from './userFragment';
 
 export default gql`
   query GetCurrentUser {
-    currentUser {
+    mUserInSession {
       ...UserFragment
     }
   }
@@ -11,5 +11,5 @@ export default gql`
 `;
 
 export interface ICurrentUser {
-  currentUser: IUser;
+  mUserInSession: IUser;
 }
