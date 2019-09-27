@@ -1,11 +1,10 @@
 import { gql } from 'apollo-boost';
-import USER_FRAGMENT, { IUser } from './userFragment';
 
 export default gql`
   fragment IssueFragment on Issue {
     id
     reporter {
-      ...UserFragment
+      id
     }
     summary
     type
@@ -20,12 +19,11 @@ export default gql`
     }
     createdAt
   }
-  ${USER_FRAGMENT}
 `;
 
 export interface IIssue {
   id: string;
-  reporter: IUser;
+  reporter: { id: string };
   summary: string;
   type: string;
   body: string;

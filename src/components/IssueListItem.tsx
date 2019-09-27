@@ -51,16 +51,17 @@ export const IssueMeta: React.FC<
 > = props => (
   <StyledIssueMeta style={props.style}>
     {props.reporter && (
-      <div
-        className="issue__user__avatar"
-        style={{ backgroundImage: `url('${props.reporter.photoUrl}')` }}
-      />
+      // <div
+      //   className="issue__user__avatar"
+      //   style={{ backgroundImage: `url('${props.reporter.private.photoUrl}')` }}
+      // />
+      <div />
     )}
     <div className="issue__meta__reporter">
       Reported{' '}
       {props.reporter && (
         <>
-          by <strong>{props.reporter.name}</strong>{' '}
+          by <strong>{props.reporter.id}</strong>{' '}
         </>
       )}
       on{' '}

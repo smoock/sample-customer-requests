@@ -67,8 +67,8 @@ const AddComment: React.FC<{
           if (query.loading) {
             return <Loader />;
           }
-          if (query.data && query.data.currentUser) {
-            const { currentUser } = query.data;
+          if (query.data && query.data.mUserInSession) {
+            const { mUserInSession: user } = query.data;
             return (
               <>
                 <div className="comment-form">
@@ -82,7 +82,7 @@ const AddComment: React.FC<{
                 <Mutation
                   mutation={CREATE_COMMENT}
                   variables={{
-                    commenterId: currentUser.id,
+                    commenterId: user.id,
                     body: text,
                     issueId: props.issueId,
                     parentId: props.parentId
@@ -136,7 +136,7 @@ const Comment: React.FC<{ issueId: string; commentId: string }> = props => {
               <div className="comment__meta">
                 {comment.commenter && (
                   <span>
-                    <strong>{comment.commenter.name}</strong> on{' '}
+                    <strong>{comment.commenter.private.name}</strong> on{' '}
                   </span>
                 )}
                 <span>

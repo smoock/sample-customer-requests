@@ -1,17 +1,21 @@
 import { gql } from 'apollo-boost';
 
 export default gql`
-  fragment UserFragment on User {
+  fragment UserFragment on MUser {
     id
-    name
-    email
-    photoUrl
+    private {
+      name
+      email
+      photoUrl
+    }
   }
 `;
 
 export interface IUser {
   id: string;
-  name: string;
-  email: string;
-  photoUrl: string;
+  private: {
+    name: string;
+    email: string;
+    photoUrl: string;
+  };
 }
