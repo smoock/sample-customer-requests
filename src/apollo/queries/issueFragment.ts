@@ -7,7 +7,9 @@ export default gql`
       id
     }
     summary
-    type
+    type {
+      name
+    }
     body
     topic {
       name
@@ -25,7 +27,7 @@ export interface IIssue {
   id: string;
   reporter: { id: string };
   summary: string;
-  type: string;
+  type: { name: string};
   body: string;
   topic: {
     name: string;
