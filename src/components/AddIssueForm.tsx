@@ -90,7 +90,7 @@ const AddIssueForm: React.FC<IProps> = props => {
         <select
           className="form-group__select"
           value={status}
-          onChange={e => setType(e.target.value)}
+          onChange={e => setStatus(e.target.value)}
         >
           <option value="new">New</option>
           <option value="prioritized">Prioritized</option>
