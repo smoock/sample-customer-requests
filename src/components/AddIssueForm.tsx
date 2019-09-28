@@ -22,6 +22,7 @@ const Styled = styled.div`
     margin-bottom: 2rem;
     display: flex;
     flex-flow: column;
+    overflow: auto;
   }
   .form-group__label {
     margin-bottom: 0.5rem;
