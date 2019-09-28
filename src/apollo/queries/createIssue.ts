@@ -8,6 +8,7 @@ export default gql`
     $topicId: UUID!
     $summary: String!
     $body: String!
+    $status: String!
   ) {
     createIssue(
       input: {
@@ -17,6 +18,7 @@ export default gql`
           topicId: $topicId
           summary: $summary
           body: $body
+          status: $status
         }
       }
     ) {

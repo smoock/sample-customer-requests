@@ -136,7 +136,7 @@ const Comment: React.FC<{ issueId: string; commentId: string }> = props => {
               <div className="comment__meta">
                 {comment.commenter && (
                   <span>
-                    <strong>{comment.commenter.private.name}</strong> on{' '}
+                    {/* <strong>{comment.commenter.private.name}</strong> on{' '} */}
                   </span>
                 )}
                 <span>

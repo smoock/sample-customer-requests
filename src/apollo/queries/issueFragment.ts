@@ -20,6 +20,7 @@ export default gql`
       }
     }
     createdAt
+    status
   }
 `;
 
@@ -32,6 +33,7 @@ export interface IIssue {
   topic: {
     name: string;
   };
+  status: string;
   createdAt: string;
   comments: {
     nodes: Array<{ id: string }>;

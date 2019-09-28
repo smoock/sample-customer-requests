@@ -49,6 +49,7 @@ const AddIssueForm: React.FC<IProps> = props => {
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
   const [type, setType] = useState('bug');
+  const [status, setStatus] = useState('new');
   const [topicId, setTopicId] = useState(props.topics[0].id);
   const SubmitButton = useMemo(
     () => (
@@ -82,6 +83,19 @@ const AddIssueForm: React.FC<IProps> = props => {
         >
           <option value="bug">Bug</option>
           <option value="request">Feature Request</option>
+        </select>
+      </div>
+      <div className="form-group">
+        <label className="form-group__label">Issue Status</label>
+        <select
+          className="form-group__select"
+          value={status}
+          onChange={e => setType(e.target.value)}
+        >
+          <option value="new">New</option>
+          <option value="prioritized">Prioritized</option>
+          <option value="building">Building</option>
+          <option value="released">Released</option>
         </select>
       </div>
       <div className="form-group">

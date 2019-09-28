@@ -49,6 +49,7 @@ const LoginPage: React.FC<RouteComponentProps<IPathParams>> = props => {
               return (
                 <Styled>
                   <h1>{issue.summary}</h1>
+                  <h2>{issue.status}</h2>
                   <IssueMeta {...issue} style={{ margin: '1rem 0 2rem 0' }} />
                   <p>{issue.body}</p>
                   <IssueComments {...issue} />
